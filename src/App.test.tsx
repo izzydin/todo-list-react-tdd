@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App'
 
 describe('App', () => {
@@ -13,5 +13,16 @@ describe('App', () => {
         render(<App />);
         const message = screen.getByText(/no tasks yet. add one!/i);
         expect(message).toBeInTheDocument();
+    });
+    it('allows adding a new todo item', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const button = screen.getByRole('button', { name: /add/i });
+
+        fireEvent.change(input, { target: { value: 'Buy milk' } });
+        fireEvent.click(button);
+
+        expect(screen.getByText('Buy milk')).toBeInTheDocument();
+        expect(input).toHaveValue('');
     });
 });
