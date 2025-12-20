@@ -56,4 +56,19 @@ describe('App', () => {
             expect(screen.getByText(task)).toBeInTheDocument();
         });
     });
+
+    it('allows marking a todo as completed', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const button = screen.getByRole('button', { name: /add/i });
+
+        fireEvent.change(input, { target: { value: 'Complete me' } });
+        fireEvent.click(button);
+
+        const checkbox = screen.getByRole('checkbox');
+        fireEvent.click(checkbox);
+
+        const todoText = screen.getByText('Complete me');
+        expect(todoText).toHaveStyle('text-decoration: line-through');
+    });
 });
