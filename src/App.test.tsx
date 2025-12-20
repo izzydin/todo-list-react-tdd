@@ -8,4 +8,10 @@ describe('App', () => {
         const heading = screen.getByRole('heading', { level: 1, name: /todo list/i });
         expect(heading).toBeInTheDocument();
     });
+
+    it('shows empty state message when no todos exist', () => {
+        render(<App />);
+        const message = screen.getByText(/no tasks yet. add one!/i);
+        expect(message).toBeInTheDocument();
+    });
 });
