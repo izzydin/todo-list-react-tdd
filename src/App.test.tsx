@@ -37,9 +37,23 @@ describe('App', () => {
 
         // Expect empty state message to remain (meaning item was not added)
         const message = screen.getByText(/no tasks yet. add one!/i);
-        expect(message).toBeInTheDocument();
-        // Also ensure it cleared the input (optional UX choice, but usually good)
-        // or actually, if we didn't add it, maybe we keep it? 
         // For now let's just assert the list is empty.
+    });
+
+    it('renders multiple todo items correctly', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const button = screen.getByRole('button', { name: /add/i });
+
+        const tasks = ['Task 1', 'Task 2', 'Task 3'];
+
+        tasks.forEach(task => {
+            fireEvent.change(input, { target: { value: task } });
+            fireEvent.click(button);
+        });
+
+        tasks.forEach(task => {
+            expect(screen.getByText(task)).toBeInTheDocument();
+        });
     });
 });
