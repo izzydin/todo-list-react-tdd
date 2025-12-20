@@ -8,7 +8,7 @@ export function TodoForm({ onSubmit }: TodoFormProps) {
     const [inputValue, setInputValue] = useState('')
 
     const handleSubmit = () => {
-        if (!inputValue) return
+        if (!inputValue.trim()) return
         onSubmit(inputValue)
         setInputValue('')
     }
