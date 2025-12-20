@@ -25,4 +25,21 @@ describe('App', () => {
         expect(screen.getByText('Buy milk')).toBeInTheDocument();
         expect(input).toHaveValue('');
     });
+
+    it('does not allow adding empty or whitespace todos', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const button = screen.getByRole('button', { name: /add/i });
+
+        // Try adding spaces
+        fireEvent.change(input, { target: { value: '   ' } });
+        fireEvent.click(button);
+
+        // Expect empty state message to remain (meaning item was not added)
+        const message = screen.getByText(/no tasks yet. add one!/i);
+        expect(message).toBeInTheDocument();
+        // Also ensure it cleared the input (optional UX choice, but usually good)
+        // or actually, if we didn't add it, maybe we keep it? 
+        // For now let's just assert the list is empty.
+    });
 });
