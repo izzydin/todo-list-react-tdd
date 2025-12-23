@@ -20,10 +20,10 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => onToggle(todo.id)}
-                aria-label={`Mark ${todo.text} as ${todo.completed ? 'incomplete' : 'compelte'}`}
+                aria-label={`Mark ${todo.text} as ${todo.completed ? 'incomplete' : 'complete'}`}
             />
             {todo.text}
-            <button onClick={() => onDelete(todo.id)}>Delete</button>
+            <button onClick={() => onDelete(todo.id)} aria-label={`Delete ${todo.text}`}>Delete</button>
         </li>
     )
 }
