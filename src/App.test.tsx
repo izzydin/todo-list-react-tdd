@@ -71,4 +71,20 @@ describe('App', () => {
         const todoText = screen.getByText('Complete me');
         expect(todoText).toHaveStyle('text-decoration: line-through');
     });
+
+    it('allows deleting a todo item', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const addButton = screen.getByRole('button', { name: /add/i });
+
+        fireEvent.change(input, { target: { value: 'Delete me' } });
+        fireEvent.click(addButton);
+
+        expect(screen.getByText('Delete me')).toBeInTheDocument();
+
+        const deleteButton = screen.getByRole('button', { name: /delete/i });
+        fireEvent.click(deleteButton);
+
+        expect(screen.queryByText('Delete me')).not.toBeInTheDocument();
+    });
 });
