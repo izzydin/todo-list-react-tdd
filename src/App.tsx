@@ -15,11 +15,15 @@ function App() {
     dispatch({ type: 'TOGGLED', id })
   }
 
+  const handleDelete = (id: string) => {
+    dispatch({ type: 'DELETED', id })
+  }
+
   return (
     <div className="app-container">
       <h1>Todo List</h1>
       <TodoForm onSubmit={handleAdd} />
-      <TodoList todos={todos} onToggle={handleToggle} />
+      <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
     </div>
   )
 }

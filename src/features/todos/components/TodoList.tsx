@@ -4,9 +4,10 @@ import type { Todo } from '../model/todo.types'
 interface TodoListProps {
     todos: Todo[]
     onToggle: (id: string) => void
+    onDelete: (id: string) => void
 }
 
-export function TodoList({ todos, onToggle }: TodoListProps) {
+export function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
     if (todos.length === 0) {
         return <p>No tasks yet. Add one!</p>
     }
@@ -14,7 +15,7 @@ export function TodoList({ todos, onToggle }: TodoListProps) {
     return (
         <ul>
             {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+                <TodoItem key={todo.id} todo={todo} onToggle={onToggle} onDelete={onDelete} />
             ))}
         </ul>
     )
