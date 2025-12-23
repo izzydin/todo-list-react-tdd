@@ -1,29 +1,16 @@
-import { useReducer } from 'react'
 import './App.css'
 import { TodoForm } from './features/todos/components/TodoForm'
 import { TodoList } from './features/todos/components/TodoList'
-import { todoReducer } from './features/todos/model/todo.reducer'
+import { useTodos } from './features/todos/hooks/useTodos'
 
 function App() {
-  const [todos, dispatch] = useReducer(todoReducer, [])
-
-  const handleAdd = (text: string) => {
-    dispatch({ type: 'ADDED', text })
-  }
-
-  const handleToggle = (id: string) => {
-    dispatch({ type: 'TOGGLED', id })
-  }
-
-  const handleDelete = (id: string) => {
-    dispatch({ type: 'DELETED', id })
-  }
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodos()
 
   return (
     <div className="app-container">
       <h1>Todo List</h1>
-      <TodoForm onSubmit={handleAdd} />
-      <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+      <TodoForm onSubmit={addTodo} />
+      <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
     </div>
   )
 }
