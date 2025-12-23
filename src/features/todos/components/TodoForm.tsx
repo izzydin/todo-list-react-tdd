@@ -20,8 +20,9 @@ export function TodoForm({ onSubmit }: TodoFormProps) {
                 placeholder="Add a new task"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                aria-label="New todo text"
             />
-            <button onClick={handleSubmit}>Add</button>
+            <button onClick={handleSubmit} aria-label="Add todo">Add</button>
         </div>
     )
 }
